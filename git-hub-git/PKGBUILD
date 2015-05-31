@@ -1,0 +1,35 @@
+# Maintainer: Jesse Dubay <jesse@jessedubay.com>
+
+_pkgname=git-hub
+pkgname=git-hub-git
+pkgver=521
+pkgrel=1
+pkgdesc='The Git command for GitHub'
+arch=('i686' 'x86_64' 'armv7h')
+url="https://github.com/ingydotnet/${_pkgname}"
+license=('MIT')
+depends=()
+makedepends=()
+optdepends=()
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
+install='git-hub.install'
+source=("git://github.com/ingydotnet/${_pkgname}.git" "git-hub.install")
+sha256sums=('SKIP'
+            '82b4d191293721a958f6568821e3447c4a2ab300401c4dcf3a45806edda4775a')
+
+pkgver() {
+    cd "$srcdir/$_pkgname"
+    git rev-list --count HEAD
+}
+
+package() {
+    cd "$srcdir/$_pkgname"
+    install -Dm644 init "${pkgdir}/usr/share/${_pkgname}/init"
+    install -Dm644 License "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE"
+
+    dirlist=(ext lib man plugin share)
+    for dir in "${dirlist[@]}"; do
+        cp -r "${dir}" "${pkgdir}/usr/share/${_pkgname}/${dir}"
+    done
+}

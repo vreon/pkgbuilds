@@ -1,0 +1,4 @@
+post_install() {
+    echo "To enable \`git hub\`, add this to your shell startup script:"
+    echo "    source /usr/share/git-hub/init"
+}
