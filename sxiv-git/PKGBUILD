@@ -6,7 +6,7 @@
 
 _name=sxiv
 pkgname="${_name}-git"
-pkgver=2015.05.18.g9264a65
+pkgver=2015.12.28.g53a72c7
 pkgrel=1
 pkgdesc="Simple (or small or suckless) X Image Viewer"
 arch=('i686' 'x86_64')
@@ -17,10 +17,8 @@ makedepends=('git')
 provides=("${_name}")
 conflicts=("${_name}")
 install="${_name}.install"
-source=("${_name}::git+${url}.git"
-        "thumb-zoom-level.patch")
-sha256sums=('SKIP'
-            '6ead22f016f25e94b804870154eacfe07304d3ac552908ae370cf7d62a347a86')
+source=("${_name}::git+${url}.git")
+sha256sums=('SKIP')
 
 pkgver() {
   cd "${srcdir}/${_name}"
@@ -29,9 +27,6 @@ pkgver() {
 
 prepare() {
   cd "${srcdir}/${_name}"
-
-  patch -p1 -i "../thumb-zoom-level.patch"
-
   # use your customisations
   [[ -f $SRCDEST/config.h ]] && cp "$SRCDEST"/config.h .
 
@@ -52,4 +47,4 @@ package() {
   install -Dm644 sxiv.desktop "$pkgdir/usr/share/applications/${_name}.desktop"
 }
 
-# vim:set ts=2 sw=2 et:pkgname=sxiv
+# vim:set ts=2 sw=2 et:
